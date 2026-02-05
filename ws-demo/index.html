@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WS Demo</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        #chat { border: 1px solid #ccc; height: 200px; overflow-y: scroll; padding: 10px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Real-time Chat</h2>
+    <div id="chat"></div>
+    <input type="text" id="msgInput" placeholder="Type a message...">
+    <button onclick="send()">Send</button>
+
+    <script>// js code here 
+        // 1. Create connection
+        const socket = new WebSocket('ws://localhost:8080');
+
+        const chatDiv = document.getElementById('chat');
+        const input = document.getElementById('msgInput');
+
+        // 2. Listen for messages from server
+        socket.onmessage = (event) => {
+            const msg = document.createElement('div');
+            msg.textContent = `> ${event.data}`;
+            chatDiv.appendChild(msg);
+            chatDiv.scrollTop = chatDiv.scrollHeight; // Auto-scroll
+        };
+
+        // 3. Send message to server
+        function send() {
+            if (input.value) {
+                socket.send(input.value);
+                input.value = '';
+            }
+        }
+
+        // Handle Enter key
+        input.addEventListener("keypress", (e) => { if (e.key === "Enter") send(); });
+    </script>
+</body>
+</html>
