@@ -10,8 +10,10 @@ wss.on('connection', (socket) => {
     // data is a Buffer by default; convert it to a string
     const message = data.toString();
     console.log(`Received: ${message}`);
+    console.log(data);
+    
 
-    // 2. BROADCAST: Loop through all clients and send the message
+    // 2.  Loop send the message
     wss.clients.forEach((client) => {
       // Only send to clients that are currently connected (OPEN)
       if (client.readyState === 1) { 

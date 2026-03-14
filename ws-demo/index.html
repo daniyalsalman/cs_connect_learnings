@@ -14,7 +14,7 @@
     <button onclick="send()">Send</button>
 
     <script>// js code here 
-        // 1. Create connection
+        // 1. mak connection
         const socket = new WebSocket('ws://localhost:8080');
 
         const chatDiv = document.getElementById('chat');
@@ -25,7 +25,7 @@
             const msg = document.createElement('div');
             msg.textContent = `> ${event.data}`;
             chatDiv.appendChild(msg);
-            chatDiv.scrollTop = chatDiv.scrollHeight; // Auto-scroll
+            chatDiv.scrollTop = chatDiv.scrollHeight; // Autoscroll
         };
 
         // 3. Send message to server
